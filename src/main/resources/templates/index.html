@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -13,6 +13,20 @@
 
 <body>
 <div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <form action="#" th:action="@{/climateInfo/filteredList}" th:object="${dateFilter}" method="post">
+                    <fieldset>
+                        <p>Filter by Date Range:</p>
+                        Start Date:  <input th:field="*{startDate}" type="date" />
+                        End Date:  <input th:field="*{endDate}" type="date" />
+                        <input type="submit" value="Filter" />
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="card">
         <div class="card-body">
             <div th:switch="${climateInfoTable}" class="container my-5">

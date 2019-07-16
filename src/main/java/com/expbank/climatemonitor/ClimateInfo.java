@@ -2,19 +2,21 @@ package com.expbank.climatemonitor;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Entity
 public class ClimateInfo {
 
-    public static final String NameField = "Station_Name";
-    public static final String ProvinceField = "Province";
-    public static final String DateField = "Date";
-    public static final String MeanTempField = "Mean_Temp";
-    public static final String HighestTempField = "Highest_Monthly_Maxi_Temp";
-    public static final String LowestTempField = "Lowest_Monthly_Min_Temp";
+    private static final String NameField = "Station_Name";
+    private static final String ProvinceField = "Province";
+    private static final String DateField = "Date";
+    private static final String MeanTempField = "Mean_Temp";
+    private static final String HighestTempField = "Highest_Monthly_Maxi_Temp";
+    private static final String LowestTempField = "Lowest_Monthly_Min_Temp";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,10 +32,12 @@ public class ClimateInfo {
     @JsonProperty(ProvinceField)
     private String province;
 
-    @NotBlank(message = "Date is mandatory")
+    //@NotBlank(message = "Date is mandatory")
     @Column(name = "Date")
     @JsonProperty(DateField)
-    private String date;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date date;
 
     @Column(name = "Mean_Temp")
     @JsonProperty(MeanTempField)
@@ -75,11 +79,11 @@ public class ClimateInfo {
         this.province = province;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
